@@ -77,7 +77,7 @@ function sourcesForProfile(p = currentProfile) {
 }
 function notifsForProfile(p = currentProfile) {
   const allowed = new Set(sourcesForProfile(p).map(s => s.id));
-  return NOTIFS.filter(n => allowed.has(n.src));
+  return window.NOTIFS.filter(n => allowed.has(n.src));
 }
 function profile() { return PROFILES[currentProfile]; }
 

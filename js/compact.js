@@ -52,7 +52,7 @@ function renderCompact() {
   // Click a compact row → open expanded and mark read
   $$('.cnotif', list).forEach(el => {
     el.addEventListener('click', () => {
-      const n = NOTIFS.find(x => x.id === +el.dataset.id);
+      const n = window.NOTIFS.find(x => x.id === +el.dataset.id);
       if (n) n.unread = false;
       openSidebar();
       renderAll();

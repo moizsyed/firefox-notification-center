@@ -325,3 +325,14 @@ renderStats();
 renderCompact();
 updateModeExamples();
 updateStatsVisibility();
+
+
+let lastNotifsSize = 0;
+setInterval(() => {
+  if (window.NOTIFS) {
+  if (lastNotifsSize != window.NOTIFS.length) {
+    lastNotifsSize = window.NOTIFS.length;
+    renderAll();
+  }
+}
+}, 5000);
