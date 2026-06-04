@@ -33,54 +33,84 @@ class CategoryElement extends LitElement {
   };
 
   static styles = css`
-    h2 {
-      margin-bottom: 0;
-    }
+    :host { display: block; }
 
-    .notification {
-      padding-block: 2px;
-
-      & > main {
-        border-radius: 8px;
-        padding: 4px;
-        padding-inline: 6px;
-      }
-
-      &:hover > main {
-        background: #7773;
-      }
-
-      & .title {
-        display: block;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow-x: hidden;
-        font-weight: 500;
-      }
-
-      & .source {
-        color: #aaa;
-      }
-    }
-
+    /* Section header (PERSONAL / WORK) — matches the app's uppercase labels */
     .top {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      font-size: 90%;
+      gap: 8px;
+      margin: 18px 2px 6px;
     }
-
     .name {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      font-weight: 300;
+      color: var(--text-3);
+    }
+    button.info {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text-3);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: var(--r-full);
+      cursor: pointer;
+      transition: background var(--t-fast), color var(--t-fast);
+    }
+    button.info:hover { background: var(--surface-3); color: var(--text-2); }
+
+    /* Notification row — mirrors .cnotif from the New Tab widget */
+    .notification { padding-block: 1px; }
+    .notification > main {
+      position: relative;
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 7px 8px;
+      border-radius: var(--r-md);
+      transition: background var(--t-fast);
+    }
+    .notification:hover > main { background: var(--surface-2); }
+
+    .icon {
+      width: 26px; height: 26px;
+      border-radius: var(--r-sm);
+      display: grid; place-items: center;
+      font-size: 12px; font-weight: 700;
+      color: white;
+    }
+    .body { min-width: 0; }
+    .title {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .source {
+      display: block;
+      font-size: 12px;
+      color: var(--text-3);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
 
-    button {
-      border-radius: 9999px;
-      padding-inline: 8px;
-      font-size: 90%;
-      color: white;
-      border: 1px solid white;
-      background: transparent;
+    /* Unread accent dot, sitting in the left gutter like .cnotif.is-unread */
+    .notification.is-unread > main::before {
+      content: "";
+      position: absolute;
+      left: 1px; top: 50%; transform: translateY(-50%);
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--purple);
     }
   `;
 
@@ -108,11 +138,15 @@ class CategoryElement extends LitElement {
   }
 
   notificationTemplate(notification) {
+    const source = window.SOURCES.find(x => x.id === notification.src);
     return html`
-      <div class="notification">
+      <div class="notification ${notification.unread ? 'is-unread' : ''}">
         <main>
-          <strong class="title">${notification.title}</strong>
-          <span class="source">${window.SOURCES.find(x => x.id === notification.src).name}</span>
+          <span class="icon" style="background:${source.color}">${source.icon}</span>
+          <span class="body">
+            <strong class="title">${notification.title}</strong>
+            <span class="source">${source.name}</span>
+          </span>
         </main>
       </div>
     `;
@@ -125,6 +159,8 @@ class CategoryListElement extends LitElement {
   };
 
   static styles = css`
+    :host { display: block; }
+
     div {
       display: flex;
       flex-direction: column;
@@ -133,17 +169,25 @@ class CategoryListElement extends LitElement {
 
     ul {
       list-style: none;
-      padding-inline-start: 0;
+      margin: 0;
+      padding: 0;
     }
 
+    /* Search — matches the app's pill-shaped inputs and theming */
     input {
-      padding: 8px;
-      padding-inline-start: 16px;
-      background: #fff2;
-      color: white;
-      border: 1px solid #bbb;
-      border-radius: 9999px;
+      font: inherit;
+      font-size: 13px;
+      width: 100%;
+      padding: 10px 16px;
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: var(--r-full);
+      outline: none;
+      transition: border-color var(--t-fast), background var(--t-fast);
     }
+    input::placeholder { color: var(--text-3); }
+    input:focus { border-color: var(--purple); background: var(--surface); }
   `;
 
   constructor() {
