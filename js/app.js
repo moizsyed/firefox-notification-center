@@ -308,7 +308,6 @@ $('#switchProfileFromSettings')?.addEventListener('click', () => {
 function renderAll() {
   renderInbox();
   renderSources();
-  renderStats();
   renderCompact();
 }
 
@@ -321,7 +320,6 @@ renderSources = function() { _renderSources(); renderCompact(); updateModeExampl
 renderProfileChrome();
 renderInbox();
 renderSources();
-renderStats();
 renderCompact();
 updateModeExamples();
 updateStatsVisibility();
@@ -332,7 +330,8 @@ setInterval(() => {
   if (window.NOTIFS) {
   if (lastNotifsSize != window.NOTIFS.length) {
     lastNotifsSize = window.NOTIFS.length;
+    document.querySelector("mockup-category-list").requestUpdate();
     renderAll();
   }
 }
-}, 5000);
+}, 2000);

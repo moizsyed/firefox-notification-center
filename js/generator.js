@@ -50,5 +50,7 @@ export const createNotificationSource = async (sourceId, sourceUrl, intervalMill
 };
 
 createNotificationSource("nyt", 'http://localhost:3000/frankenstein.txt', 5000, (item) => {
+    console.log('PUSHING' + JSON.stringify(item));
     window.NOTIFS.push(item);
+    window.fireWebNotification(item);
 });

@@ -6,10 +6,8 @@ import {
 } from "https://cdn.jsdelivr.net/gh/lit/dist@3/all/lit-all.min.js";
 
 const NotificationManager = new (class {
-  #store = [...window.NOTIFS];
-
   getNotifications(sources, searchQuery) {
-    return this.#store.filter((notification) => {
+    return window.NOTIFS.filter((notification) => {
       return (
         notification.title.toLowerCase().indexOf(searchQuery) >= 0 &&
         sources.find(src => src.id === notification.src)
