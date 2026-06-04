@@ -172,12 +172,6 @@
       </button>
     </header>
 
-    <!-- Mode banner (only shown when not standard) -->
-    <div class="mode-banner" id="modeBanner" hidden>
-      <span id="modeBannerText">In Calm mode · 6 notifications hidden</span>
-      <span class="x" id="modeBannerExit">Switch to Standard</span>
-    </div>
-
     <!-- Tabs -->
     <nav class="sb__tabs" role="tablist">
       <button class="sbtab is-active" data-tab="recent" role="tab" aria-selected="true">
@@ -215,7 +209,6 @@
           <button class="btn is-active" data-filter="all">All</button>
           <button class="btn" data-filter="unread">Unread <span class="kbd" id="unreadCount">5</span></button>
           <button class="btn" data-filter="today">Today</button>
-          <button class="btn" data-filter="flagged">Needs review</button>
           <div class="toolbar__push"></div>
           <button class="btn btn--ghost btn--icon" id="markAllBtn" title="Mark all read">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>
@@ -246,26 +239,6 @@
 
       <!-- SOURCES view -->
       <section class="sb__view" data-view="sources" role="tabpanel" hidden>
-        <!-- Insight nudge -->
-        <div class="callout">
-          <div class="callout__icon">✦</div>
-          <div class="callout__body">
-            <strong>3 sites haven't been clicked in 30 days.</strong>
-            They've sent 28 notifications since you opened them last.
-            <div class="callout__actions">
-              <button class="btn btn--primary" id="reviewDormantBtn">Review 3 dormant</button>
-              <button class="btn btn--ghost">Not now</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sort chips -->
-        <div class="pane__filter" style="padding: 4px 0 10px;">
-          <button class="chip is-active" data-source-sort="recent">Most recent</button>
-          <button class="chip" data-source-sort="loud">Loudest</button>
-          <button class="chip" data-source-sort="dormant">Never opened</button>
-        </div>
-
         <!-- Source list (rendered by JS) -->
         <div id="sourceList"></div>
         <span id="sourceCount" hidden></span>

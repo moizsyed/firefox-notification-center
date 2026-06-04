@@ -17,15 +17,6 @@ $$('[data-source-filter]').forEach(btn => {
     renderInbox();
   });
 });
-$$('[data-source-sort]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    $$('[data-source-sort]').forEach(b => b.classList.remove('is-active'));
-    btn.classList.add('is-active');
-    sourceSort = btn.dataset.sourceSort;
-    renderSources();
-  });
-});
-
 /* Grouping mode chips (Source / Category / None) — kept in sync with the
    "Group by source" toggle in Settings. */
 function syncGroupControls() {
@@ -73,10 +64,6 @@ $('#cleanupBtn').addEventListener('click', () => {
     sub: dormant.map(d => d.name).join(', '),
     undo: () => { dormant.forEach(s => sourceState[s.id].revoked = false); renderSources(); renderInbox(); renderStats(); }
   });
-});
-
-$('#reviewDormantBtn').addEventListener('click', () => {
-  document.querySelector('[data-source-sort="dormant"]').click();
 });
 
 /* =========================================================
@@ -216,10 +203,6 @@ $$('.mode-card').forEach(m => {
     });
   });
 });
-$('#modeBannerExit').addEventListener('click', () => {
-  document.querySelector('.mode-card[data-mode="standard"]').click();
-});
-
 /* =========================================================
    Settings: slider + toggles
    ========================================================= */

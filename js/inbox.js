@@ -35,28 +35,15 @@ function renderInbox() {
     if (hideMuted && sourceState[n.src]?.paused) return false;
     if (activeFilter === 'unread') return n.unread;
     if (activeFilter === 'today')  return (NOW - n.when) / 3600000 < 24;
-    if (activeFilter === 'flagged') return src(n.src).status === 'dormant';
     return true;
   });
   const filtered = allVisible.filter(modeFilter);
-  const hiddenByMode = allVisible.length - filtered.length;
 
   // Update counters
   $('#tabRecentCount').textContent = filtered.length;
   const unread = POOL.filter(n => n.unread && !sourceState[n.src]?.revoked).length;
   $('#unreadCount').textContent = unread;
   $('#newCount').textContent = unread;
-
-  // Mode banner
-  const banner = $('#modeBanner');
-  if (activeMode !== 'standard' && hiddenByMode > 0) {
-    banner.hidden = false;
-    const label = activeMode === 'calm' ? 'Calm' : 'Focused';
-    $('#modeBannerText').textContent =
-      `In ${label} mode · ${hiddenByMode} notification${hiddenByMode === 1 ? '' : 's'} hidden`;
-  } else {
-    banner.hidden = true;
-  }
 
   // Empty state
   if (filtered.length === 0) {
